@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Visit;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 class VisitController extends Controller
 {
     /**
@@ -21,6 +24,7 @@ class VisitController extends Controller
         $visit=Visit::where($where)->paginate(3);
         //dd($visit);
         return view('visit.index',['visit'=>$visit,'account_id'=>$account_id]);
+        
     }
 
     /**
@@ -31,6 +35,7 @@ class VisitController extends Controller
     public function create()
     {
         return view('visit.create');
+
     }
 
     /**
@@ -40,7 +45,7 @@ class VisitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
         $post=$request->except('_token');
         //dd($post);
         $validatedData = $request->validate([ 
@@ -63,6 +68,7 @@ class VisitController extends Controller
         if($res){
            return redirect('/visit/index');
         }
+
     }
 
     /**
@@ -84,8 +90,10 @@ class VisitController extends Controller
      */
     public function edit($id)
     {
+
         $visit=Visit::where('visit_id',$id)->first();
         return view('visit.edit',['visit'=>$visit]);
+        
     }
 
     /**
@@ -105,6 +113,7 @@ class VisitController extends Controller
         if($visit!==false){
         return redirect('/visit/index');
        }
+
     }
 
     /**
@@ -120,5 +129,6 @@ class VisitController extends Controller
         if($visit){
             return redirect('/visit/index');
         }
+
     }
 }
